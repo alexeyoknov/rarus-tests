@@ -1,0 +1,53 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Подсчет скобок</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  </head>
+
+  <body>
+    <script type="text/javascript" language="JavaScript">
+      function checkBrackets() {
+        var iBlock = document.getElementById('infoblock');
+        var result = document.getElementById('result');
+        var text = document.getElementById('formula');
+        var openBrackets = 0;
+        var closeBrackets = 0;
+        var classLists = Array("alert-info","alert-success","alert-danger");
+
+        for (var i = 0; i < text.value.length; i++){
+          if (text.value[i] == '(')
+            openBrackets++;
+          if (text.value[i] == ')')
+	    closeBrackets++; 
+        }
+
+        var resClass = (openBrackets == closeBrackets) ? "alert-success" : "alert-danger";
+        var resText = (openBrackets == closeBrackets) ? "Все OK" : "Количесто скобок не совпадает";
+
+        for(i=0; i<classLists.length; i++)
+          if (iBlock.classList.contains(classLists[i])) {
+	    iBlock.classList.remove(classLists[i]);
+        }
+
+        iBlock.classList.add(resClass);
+        result.innerText = resText;
+      }
+    </script>
+    <div class="form-group">
+      <label for="formula">Введите текст или формулу со скобками:</label>
+      <input type="text" name="formula" class="form-control" placeholder="5*(4-2)" value="5*(4-2)" id="formula">
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-default" id="btnCheckBrackets" type="button"
+        onclick="checkBrackets();">Проверить скобки</button>
+    </div>
+    <div class="alert alert-info" role="alert" id=infoblock>
+      <span id=result>Результат проверки</span>
+    </div>
+  </body>
+</html>

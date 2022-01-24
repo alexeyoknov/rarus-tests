@@ -1,0 +1,71 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Форма обратной связи</title>
+  <script src="https://ru.vuejs.org/js/vue.min.js"></script>
+  <script src = "https://unpkg.com/axios/dist/axios.min.js"> </script>
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+  <div id="app">
+
+  <form class="vue-form" @submit.prevent="submit">
+    <div v-if="!feedbackStatus.valid" class='error-email-validation'>
+      <p>Регистрация пользователей с таким почтовым адресом невозможна </p>
+    </div>
+    <fieldset>
+      <legend>Форма обратной связи</legend>
+
+      <div>
+        <label class="label" for="textarea">Комментарий</label>
+        <textarea class="message" name="comment" id="comment" 
+                  v-model="message.text" 
+                  :maxlength="message.maxlength"></textarea>
+        <span class="counter">{{ message.text.length }} / {{ message.maxlength }}</span>
+      </div>
+
+      <div>
+        <label class="label" for="name">ФИО</label>
+        <input type="text" name="name" id="name" required=""
+              :class="{ error: !name.valid }" v-model="name.value">
+      </div>
+
+      <div>
+        <label class="label" for="address">Адрес</label>
+        <input type="text" name="address" id="address"  v-model="address">
+      </div>
+
+      <div>
+        <label class="label" for="email">Email</label>
+        <input type="email" name="email" id="email" 
+               :class="{ email , error: !email.valid }"
+               v-model="email.value">
+      </div>
+
+      <div>
+        <label class="label" for="phone">Мобильный телефон</label>
+        <input type="text" name="phone" id="phone" required=""
+              :class="{ error: !phone.valid }"
+              v-model="phone.value">
+      </div>
+
+      <div>
+        <label class="label" for="files">Файл</label>
+        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+        <div v-html="file.uploadMessage"></div>
+      </div>
+
+      <div>
+        <input type="submit" value="Отправить сообщение">
+      </div>
+    </fieldset>
+  </form>
+
+</div>
+  <script src="index.js"></script>
+</body>
+</html>
