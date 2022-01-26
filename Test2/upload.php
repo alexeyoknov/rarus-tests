@@ -13,10 +13,12 @@
     
     // Директория куда будут загружаться файлы.
     $path = __DIR__ . '/uploads/';
-    
+    $mdstatus = true;
+    if (!is_dir($path))
+        $mdstatus = mkdir($path,0755);
     
     $error = $success = '';
-    if (!isset($_FILES[$input_name])) {
+    if (!isset($_FILES[$input_name]) || !$mdstatus ) {
         $error = "Файл не загружен. Проверьте права доступа к «" . $path . "»";
     } else {
         $file = $_FILES[$input_name];
